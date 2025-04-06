@@ -26,6 +26,11 @@ If you already have all the dependencies installed, you can just run the
 ./buildISO.sh
 ```
 
+> [!NOTE]
+> Regardless of which method you use, it will take a while  to build
+> everything from source, especially if you are including `gcc` in the
+> `iso`.
+
 ## Running
 Once you have built the `iso` and boot it up, you will be greeted with the
 the GRUB boot selector. After which, you will be dropped into the,
