@@ -78,6 +78,7 @@ if [ ! -z $INCLUDE_GCC_BUILD ]; then
             echo done.
         fi
     fi
+    cd $ROOT/gcc
     ./contrib/download_prerequisites
 
     # Check if Zstd source exists
