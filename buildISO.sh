@@ -9,10 +9,24 @@ SCRIPT_DIR=$PWD
 # Repos that checked out to a specific version
 checked_out=()
 
+# Check if the --depth flag should be added
+# param: version variable
+get_depth() {
+    local version="$1"
+    local full_depth=false
+    if [ ! -z "$version" ] || [ -z $DOCKER_OS_BUILD ]; then
+        full_depth=true
+    fi
+
+    if ! $full_depth; then
+        echo --depth=1
+    fi
+}
+
 # Check if linux source exists
 cd $ROOT
 if [ ! -d "linux" ]; then
-    git clone https://github.com/torvalds/linux.git --depth=1
+    git clone https://github.com/torvalds/linux.git $(get_depth $KERNELV)
 else
     cd linux && git pull
 fi
@@ -30,7 +44,7 @@ cd $ROOT
 
 # Check if busybox source exists
 if [ ! -d "busybox" ]; then
-    git clone https://github.com/mirror/busybox.git --depth=1
+    git clone https://github.com/mirror/busybox.git $(get_depth $BUSYBOXV)
 else
     cd busybox && git pull
 fi
@@ -48,7 +62,7 @@ cd $ROOT
 
 # Check if glibc source exists
 if [ ! -d "glibc" ]; then
-    git clone https://github.com/bminor/glibc.git --depth=1
+    git clone https://github.com/bminor/glibc.git $(get_depth $GLIBCV)
 else
     cd glibc && git pull
 fi
@@ -68,7 +82,7 @@ cd $ROOT
 if [ ! -z $INCLUDE_GCC_BUILD ]; then
     # Check if GCC source exists
     if [ ! -d "gcc" ]; then
-        git clone https://gcc.gnu.org/git/gcc.git --depth=1
+        git clone https://gcc.gnu.org/git/gcc.git $(get_depth $GCCV)
     else
         cd gcc && git pull
     fi
@@ -88,7 +102,7 @@ if [ ! -z $INCLUDE_GCC_BUILD ]; then
     # Check if Zstd source exists
     mkdir -p gcc_utils && cd gcc_utils
     if [ ! -d "zstd" ]; then
-        git clone https://github.com/facebook/zstd.git --depth=1
+        git clone https://github.com/facebook/zstd.git $(get_depth $ZSTDV)
     else
         cd zstd && git pull
     fi
@@ -106,7 +120,8 @@ if [ ! -z $INCLUDE_GCC_BUILD ]; then
     cd $ROOT
     # Check if binutils source exists
     if [ ! -d "binutils" ]; then
-        git clone https://sourceware.org/git/binutils-gdb.git  binutils --depth=1
+        git clone https://sourceware.org/git/binutils-gdb.git  binutils \
+            $(get_depth $BINUTILSV)
     else
         cd binutils && git pull
     fi
