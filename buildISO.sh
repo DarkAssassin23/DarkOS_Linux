@@ -100,7 +100,7 @@ if [ ! -z $INCLUDE_GCC_BUILD ]; then
     ./contrib/download_prerequisites
 
     # Check if Zstd source exists
-    mkdir -p gcc_utils && cd gcc_utils
+    mkdir -p $ROOT/gcc/gcc_utils && cd $ROOT/gcc/gcc_utils
     if [ ! -d "zstd" ]; then
         git clone https://github.com/facebook/zstd.git $(get_depth $ZSTDV)
     else
@@ -150,11 +150,6 @@ cd $SCRIPT_DIR
 cd $SCRIPT_DIR
 . ./components/glibc.sh
 
-# Build and install GCC Utils
-if [ ! -z $INCLUDE_GCC_BUILD ]; then
-    cd $SCRIPT_DIR
-    . ./components/gcc.sh
-fi
 
 cd $INSTALLDIR
 # Make script aliases
@@ -200,6 +195,12 @@ if [ ! -d $FILESYSTEMDIR ]; then
     mkdir -p $FILESYSTEMDIR
 fi
 cp -r $INSTALLDIR/* $FILESYSTEMDIR/
+
+# Build and install GCC Utils
+if [ ! -z $INCLUDE_GCC_BUILD ]; then
+    cd $SCRIPT_DIR
+    . ./components/gcc.sh
+fi
 
 ### Add additional programs ###
 if [ ! -z $PROGDIRS ]; then
