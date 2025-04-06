@@ -27,9 +27,11 @@ If you already have all the dependencies installed, you can just run the
 ```
 
 > [!NOTE]
-> Regardless of which method you use, it will take a while  to build
+> Regardless of which method you use, it will take a while to build
 > everything from source, especially if you are including `gcc` in the
-> `iso`.
+> `iso` or are specifying specific versions for the different components
+> as the full git repo needs to be cloned rather than using the 
+> `--depth=1` flag
 
 ## Running
 Once you have built the `iso` and boot it up, you will be greeted with the
