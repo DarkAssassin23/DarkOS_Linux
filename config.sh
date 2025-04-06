@@ -19,6 +19,9 @@ ARCH=x86 # Architecture directory where the bzImage will be
 # Build and include GCC as part of the ISO
 # export INCLUDE_GCC_BUILD=yes
 
+# Are we building in a docker container?
+export DOCKER_OS_BUILD=yes
+
 # Kernel version to use (e.g., v6.12) if blank, use master
 # KERNELV='v6.13'
 
