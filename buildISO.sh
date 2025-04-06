@@ -17,6 +17,7 @@ else
     cd linux && git pull
 fi
 if [ -n "$KERNELV" ]; then
+    cd $ROOT/linux
     if [ $(git rev-parse --verify "$KERNELV") ]; then
         echo Using kernel version: $KERNELV
         echo Checking out $KERNELV.
@@ -34,6 +35,7 @@ else
     cd busybox && git pull
 fi
 if [ -n "$BUSYBOXV" ]; then
+    cd $ROOT/busybox
     if [ $(git rev-parse --verify "$BUSYBOXV") ]; then
         echo Using Busybox version: $BUSYBOXV
         echo Checking out $BUSYBOXV.
@@ -51,6 +53,7 @@ else
     cd glibc && git pull
 fi
 if [ -n "$GLIBCV" ]; then
+    cd $ROOT/glibc
     if [ $(git rev-parse --verify "glibc-$GLIBCV") ]; then
         echo Using glibc version: $GLIBCV
         echo Checking out glibc-$GLIBCV.
@@ -70,6 +73,7 @@ if [ ! -z $INCLUDE_GCC_BUILD ]; then
         cd gcc && git pull
     fi
     if [ -n "$GCCV" ]; then
+        cd $ROOT/gcc
         if [ $(git rev-parse --verify "releases/gcc-$GCCV") ]; then
             echo Using GCC version: $GCCV
             echo Checking out $GCCV.
@@ -89,6 +93,7 @@ if [ ! -z $INCLUDE_GCC_BUILD ]; then
         cd zstd && git pull
     fi
     if [ -n "$ZSTDV" ]; then
+        cd $ROOT/zstd
         if [ $(git rev-parse --verify "$ZSTDV") ]; then
             echo Using zstd version: $ZSTDV
             echo Checking out $ZSTDV.
@@ -106,6 +111,7 @@ if [ ! -z $INCLUDE_GCC_BUILD ]; then
         cd binutils && git pull
     fi
     if [ -n "$BINUTILSV" ]; then
+        cd $ROOT/binutils
         if [ $(git rev-parse --verify "binutils-$BINUTILSV") ]; then
             echo Using binutils version: $BINUTILSV
             echo Checking out $BINUTILSV.
