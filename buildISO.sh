@@ -215,12 +215,15 @@ if [ ! -z $ISO_DEST ]; then
 fi
 
 ### Clean up ###
-# Reset branch back to master
-if [ ${#checked_out[@]} ]; then
-    for dir in ${checked_out[@]}
-    do
-        echo Checking out $dir back to master branch
-        cd $ROOT/$dir && git switch - > /dev/null 2>&1
-        echo done.
-    done
+# If building with docker, reseting is pointless
+if [ -z $DOCKER_OS_BUILD ]; then
+    # Reset branch back to master
+    if [ ${#checked_out[@]} ]; then
+        for dir in ${checked_out[@]}
+        do
+            echo Checking out $dir back to master branch
+            cd $ROOT/$dir && git switch - > /dev/null 2>&1
+            echo done.
+        done
+    fi
 fi
